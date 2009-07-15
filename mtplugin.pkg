@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<plugin version="1.03">
+  <name>Comment Challenge</name>
+  <version_url>http://jayallen.org/projects/comment-challenge/version.xml</version_url>
+  <sig>commchallenge/commchallenge.pl</sig>
+  <files>
+      <file>
+          <src>plugins/commchallenge/commchallenge.pl</src>
+          <destination>plugins/commchallenge/commchallenge.pl</destination>
+      </file>
+      <file>
+          <src>plugins/commchallenge/lib</src>
+          <destination>plugins/commchallenge/lib</destination>
+      </file>
+      <file>
+          <src>plugins/commchallenge/tmpl</src>
+          <destination>plugins/commchallenge/tmpl</destination>
+      </file>
+      <file>
+          <src>php/plugins/function.MTCommentChallenge.php</src>
+          <destination>php/plugins/function.MTCommentChallenge.php</destination>
+      </file>
+  </files>
+  <uninstall>
+      <rmdir>plugins/commchallenge</rmdir>
+  </uninstall>
+</plugin>

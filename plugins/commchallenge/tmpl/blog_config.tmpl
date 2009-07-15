@@ -1,0 +1,80 @@
+<!-- Comment Challenge: $Id: blog_config.tmpl 1485 2009-03-04 05:00:16Z jallen $ -->
+<div class="setting grouped">
+    <div class="label"><MT_TRANS phrase="Beacon:"></div>
+    <div class="field">
+        <ul>
+        <li>
+            <input type="checkbox" name="commchallenge_mode" id="commchallenge_mode" value="1" <TMPL_IF NAME=COMMCHALLENGE_MODE>checked="checked"</TMPL_IF> onclick="toggleAdvancedPrefs(event,'commchallenge_mode')" /> <MT_TRANS phrase="BEACON_SETTING">
+            <p><MT_TRANS phrase="BEACON_DESCRIPTION">  <TMPL_UNLESS NAME=COMMCHALLENGE_MODE><MT_TRANS phrase="BEACON_WARNING"></TMPL_UNLESS>  <TMPL_UNLESS NAME=COMMCHALLENGE_THROTTLE_NOBEACON><span id="nobeacon-toggle"><a href="#" onclick="show('nobeacon');hide('nobeacon-toggle');return false;">(advanced)</a></span></TMPL_UNLESS></p>
+            </li>
+        </ul>
+    </div>
+
+    <div id="nobeacon" style="display: <TMPL_IF NAME=COMMCHALLENGE_MODE><TMPL_IF NAME=COMMCHALLENGE_THROTTLE_NOBEACON>block<TMPL_ELSE>none</TMPL_IF><TMPL_ELSE>none</TMPL_IF>">
+        <div class="label"></div>
+        <div class="field" style="padding-left: 30px;">
+        <ul>
+            <li>
+                <input type="checkbox" name="commchallenge_throttle_nobeacon" id="commchallenge_throttle_nobeacon" value="1" <TMPL_IF NAME=COMMCHALLENGE_THROTTLE_NOBEACON>checked="checked"</TMPL_IF> /> <label for="commchallenge_throttle_nobeacon"><MT_TRANS phrase="THROTTLE_SETTING"></label>
+            </li>
+        </ul>
+        <p><MT_TRANS phrase="THROTTLE_DESCRIPTION"></p>
+        </div>
+    </div>
+</div>
+
+
+<div id="commchallenge_mode-advanced" class="setting-advanced" style="display: <TMPL_IF NAME=COMMCHALLENGE_MODE>block<TMPL_ELSE>none</TMPL_IF>">
+
+    <div class="setting grouped">               
+        <div class="label"><MT_TRANS phrase="Challenge/Response CAPTCHA:"></div>
+        <div class="field">
+            <p><MT_TRANS phrase="CAPTCHA_DESCRIPTION"></p>
+            <ul>
+            <li>                
+                <label for="commchallenge_question"><MT_TRANS phrase="Challenge:"></label>
+                <input type="text" name="commchallenge_question" id="commchallenge_question" value="<TMPL_VAR NAME=COMMCHALLENGE_QUESTION ESCAPE=HTML>" size="40" onchange="show('commchallenge_rebuild_warning');"/><br />
+            </li>
+            <li>
+                <label for="commchallenge_answer"><MT_TRANS phrase="Response:"></label>
+                <input type="text" name="commchallenge_answer" id="commchallenge_answer" value="<TMPL_VAR NAME=COMMCHALLENGE_ANSWER ESCAPE=HTML>" size="40"  onchange="show('commchallenge_rebuild_warning');" />
+            </li>
+            </ul>
+            <p id="commchallenge_rebuild_warning" style="display:none; background-color: #faa; border: 1px solid #f00;padding: 3px;color: #333;"><MT_TRANS phrase="REBUILD_WARNING"></p>
+        </div>
+    </div>
+    
+    <TMPL_IF NAME=COMMCHALLENGE_ANSWER><TMPL_IF NAME=COMMCHALLENGE_QUESTION>
+    <div class="setting" id="inform_commenter">
+        <div class="label"><label for="commchallenge_inform_commenter"><MT_TRANS phrase="Incorrect response action:"></label></div>
+        <div class="field">
+        <ul>
+            <li><input type="radio" name="commchallenge_inform_commenter" value="0" <TMPL_UNLESS NAME=COMMCHALLENGE_INFORM_COMMENTER>checked="checked"</TMPL_UNLESS> class="rb" /> <MT_TRANS phrase="Score comment as Junk"></li>
+            <li><input type="radio" name="commchallenge_inform_commenter" value="1" <TMPL_IF NAME=COMMCHALLENGE_INFORM_COMMENTER>checked="checked"</TMPL_IF> class="rb" /> <MT_TRANS phrase="Inform commenter of problem"></li>
+        </ul>
+        <p><MT_TRANS phrase="RESPONSE_DESCRIPTION"></p>
+        </div>
+    </div>
+    </TMPL_IF></TMPL_IF>
+</div>
+
+
+<script type="text/javascript">
+// <!-- 
+<TMPL_IF NAME="ADD_SHOWHIDEJS">
+    function show(id) {
+        var el = getByID(id);
+        if (!el) return;
+        el.style.display = 'block';
+    }
+
+    function hide(id) {
+        var el = getByID(id);
+        if (!el) return;
+        el.style.display = 'none';
+    }
+</TMPL_IF>
+// toggleDisplay('config-2', 'plugin-info-2');
+    <TMPL_IF NAME=COMMCHALLENGE_MODE>show<TMPL_ELSE>hide</TMPL_IF>('nobeacon-toggle');
+// -->
+</script>
