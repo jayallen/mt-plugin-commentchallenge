@@ -38,6 +38,26 @@ MT->add_plugin($plugin = __PACKAGE__->new({
         ['commchallenge_inform_commenter', { Default => 0 }],
         ['commchallenge_throttle_nobeacon', { Default => 0 }]
     ]),
+    registry => {
+        callbacks => {
+            CommentThrottleFilter => {
+                code => sub { $plugin->runner('callback_comment_throttle_filter', @_) },
+                priority => 5,
+            }
+        },
+        junk_filters => {
+            commentchallenge => {
+                label => "Comment challenge",
+                code => sub { $plugin->runner('hdlr_comment_challenge', @_) },
+            },
+            
+        },
+        tags => {
+            function => {
+                CommentChallenge => sub { $plugin->runner('hdlr_comment_challenge', @_) },
+            }
+        }
+    },
 }));
 
 # Adding L10N bootstrapping for MT 3.2
@@ -47,17 +67,17 @@ if ($MT::VERSION < 3.3) {
     }
 }
 
-require MT::Template::Context;
-MT::Template::Context->add_tag('CommentChallenge', 
-    sub { $plugin->runner('hdlr_comment_challenge', @_) });
-
-MT->add_callback('CommentThrottleFilter', 5, $plugin, 
-    sub { $plugin->runner('callback_comment_throttle_filter', @_) });
-MT->register_junk_filter([
-              { code => sub { $plugin->runner('eval_comment_challenge', @_) },
-                plugin => $plugin,
-                name => 'Comment challenge' },
-              ]);
+# require MT::Template::Context;
+# MT::Template::Context->add_tag('CommentChallenge', 
+#     sub { $plugin->runner('hdlr_comment_challenge', @_) });
+# 
+# MT->add_callback('CommentThrottleFilter', 5, $plugin, 
+#     sub { $plugin->runner('callback_comment_throttle_filter', @_) });
+# MT->register_junk_filter([
+#               { code => sub { $plugin->runner('eval_comment_challenge', @_) },
+#                 plugin => $plugin,
+#                 name => 'Comment challenge' },
+#               ]);
 
 sub runner {
     my $plugin = shift;
