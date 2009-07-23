@@ -15,7 +15,7 @@ use constant DEBUG_MODE => 0;
 
 use base 'MT::Plugin';
 
-our $VERSION = "1.03";
+our $VERSION = "1.04";
 
 (our $PLUGIN_MODULE = __PACKAGE__) =~ s/^MT::Plugin:://;
 
@@ -66,18 +66,6 @@ if ($MT::VERSION < 3.3) {
         MT->add_callback('MT::App::'.$class.'::pre_run', 1, $plugin, \&add_l10n);
     }
 }
-
-# require MT::Template::Context;
-# MT::Template::Context->add_tag('CommentChallenge', 
-#     sub { $plugin->runner('hdlr_comment_challenge', @_) });
-# 
-# MT->add_callback('CommentThrottleFilter', 5, $plugin, 
-#     sub { $plugin->runner('callback_comment_throttle_filter', @_) });
-# MT->register_junk_filter([
-#               { code => sub { $plugin->runner('eval_comment_challenge', @_) },
-#                 plugin => $plugin,
-#                 name => 'Comment challenge' },
-#               ]);
 
 sub runner {
     my $plugin = shift;
