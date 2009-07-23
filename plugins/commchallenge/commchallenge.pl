@@ -15,7 +15,7 @@ use constant DEBUG_MODE => 0;
 
 use base 'MT::Plugin';
 
-our $VERSION = "1.04";
+our $VERSION = "1.06";
 
 (our $PLUGIN_MODULE = __PACKAGE__) =~ s/^MT::Plugin:://;
 
@@ -24,7 +24,7 @@ MT->add_plugin($plugin = __PACKAGE__->new({
     name => 'Comment Challenge',
     version => $VERSION,
     key => 'commchallenge',
-    description => '<MT_TRANS phrase="This anti-spam plugin stops direct injection of comment spam into Movable Type and enables you to implement a challenge/response defense via an accessible CAPTCHA.">',
+    description => '<MT_TRANS phrase="This anti-spam plugin stops direct injection of comment spam into Melody/Movable Type blogs and enables you to implement a challenge/response defense via an accessible CAPTCHA.">',
     doc_link => 'http://jayallen.org/projects/commentchallenge/docs',
     author_name => 'Jay Allen',
     author_link => 'http://www.jayallen.org/',
@@ -48,7 +48,7 @@ MT->add_plugin($plugin = __PACKAGE__->new({
         junk_filters => {
             commentchallenge => {
                 label => "Comment challenge",
-                code => sub { $plugin->runner('callback_comment_throttle_filter', @_) },
+                code => sub { $plugin->runner('eval_comment_challenge', @_) },
             },
             
         },
