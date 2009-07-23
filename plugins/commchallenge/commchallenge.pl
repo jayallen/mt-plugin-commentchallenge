@@ -48,7 +48,7 @@ MT->add_plugin($plugin = __PACKAGE__->new({
         junk_filters => {
             commentchallenge => {
                 label => "Comment challenge",
-                code => sub { $plugin->runner('hdlr_comment_challenge', @_) },
+                code => sub { $plugin->runner('callback_comment_throttle_filter', @_) },
             },
             
         },
